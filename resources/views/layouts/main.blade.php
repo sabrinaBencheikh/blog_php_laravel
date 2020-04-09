@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>blog/ {{ $page }}</title>
+    <title>blog/ {{ $page ?? ' ' }}</title>
 
 
     <!-- Bootstrap core CSS -->
@@ -23,15 +23,13 @@
         <a class="nav-link" href="/Articles">Articles <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Contacts">Contacts</a>
+        <a class="nav-link" href="/Contacts">Contact</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
   </div>
 </nav>
+<div  style="margin:90px">
+  @yield('content')
+</div>
 
-@yield('content')
 </html>

@@ -8,8 +8,9 @@ class HomeController extends Controller
 {
     //
     function index () {
-        $posts = \App\Post::orderBy('post_date', 'desc')->limit(3)->get();
-        return view ('welcome', array('posts' => $posts))->with('page','Home');
+        $posts = \App\Models\Post::latest()->limit(3)->get();
+        return view ('welcome', array('posts' => $posts,
+                                      'page' => 'Home'));
     }
 
     

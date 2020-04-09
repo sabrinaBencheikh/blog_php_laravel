@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Comment;
 
 class UsersTableSeeder extends Seeder
 {
@@ -10,11 +13,15 @@ class UsersTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        
-        factory(App\User::class, 10)->create()->each(function ($user) {
-            $user->posts()->save(factory(App\Post::class)->create());
+    {   
+       factory(App\Models\User::class, 10)->create()
+        ->each(function ($user) {
+            $user->posts()->saveMany(factory(App\Models\Post::class, 2)->create()
+            ->each(function ($post) {
+                $post->comments()->saveMany(factory(App\Models\Comment::class,20)->create());
+        }));
         });
+        
  
     }
 }

@@ -1,6 +1,7 @@
 @extends('layouts/main')
+
 @section('content')
-<div style="padding-top:60px; padding-left:25%">
+<div style="padding-left:25%">
     <h3>Nous contacter:</h3><br>
     <form action="/Contacts" method="POST">
         @csrf
@@ -17,7 +18,7 @@
         </div>
         <div>
         <label for="contact_message">Message</label><br>
-        <textarea name="message" id="message" required="requied" cols="60" rows="10"></textarea><br>
+        <textarea name="message" id="message"  placeholder="Votre message..." required="requied" cols="60" rows="10"></textarea><br>
         {!! $errors->first('message', '<span class="help-block">:message</span>') !!}
         </div>
         <button type="submit">Envoyer >></button>

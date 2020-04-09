@@ -17,8 +17,15 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 
+Route::resource('admin/articles', 'ArticlesController')->except(['index', 'show']);
+
 Route::get('/', 'HomeController@index');
-Route::get('/Articles', 'ArticlesController@Articles');
+
+Route::get('/Articles', 'ArticlesController@index');
+Route::get('/Articles/{post_name}', 'ArticlesController@show');
+
 Route::get('/Contacts', 'ContactsController@create');
 Route::post('/Contacts', 'ContactsController@store');
-Route::get('/Articles/{post_name}', 'ArticlesController@show');
+
+Route::get('/Articles/{post_name}/Comments', 'CommentController@show');
+Route::post('/Comments', 'CommentController@store');

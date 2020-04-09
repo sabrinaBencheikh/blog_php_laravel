@@ -18,12 +18,12 @@ class CreatePostsTable extends Migration
             $table->timestamps();
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->dateTime('post_date')->nullable(false);
-            $table->text('post_content')->nullable(false);
-            $table->text('post_title')->nullable(false);
+            $table->dateTime('post_date');
+            $table->text('post_content');
+            $table->text('post_title');
             $table->string('post_status',20)->nullable();
-            $table->string('post_name',200)->nullable(false);
-            $table->string('post_type',20)->nullable(false);
+            $table->string('post_name',200);
+            $table->string('post_type',20);
             $table->text('post_category')->nullable();         
         });
     }
