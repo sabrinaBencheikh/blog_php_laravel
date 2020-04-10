@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Http\Requests\ArticleRequest;
 
 class ArticlesController extends Controller
 {
@@ -12,10 +13,16 @@ class ArticlesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+   public function __construct(){
+
+            $this->middleware('auth')->except('show','index');
+    }
+
+
     public function index()
     {
         $posts = \App\Models\Post::latest()->paginate(10);
-        //orderBy('post_date', 'desc')->get();
         return view ('articles', ['posts' => $posts,
                                   'page'=> 'articles']
                     );
@@ -38,12 +45,8 @@ class ArticlesController extends Controller
      * @return \Illuminate\Http\Response
      */
    
-  /* public function __construct(){
-
-        $this->middleware('auth')->except('index', 'show');
-   }*/
-   
-     public function store(Request $request)
+    
+     public function store(ArticleRequest $request)
     {
         $post = new Post();
         $post->post_name = request('name');
@@ -54,7 +57,7 @@ class ArticlesController extends Controller
         $post->user_id = auth()->user()->id;
         $post->save();
         
-        return back();
+        return redirect()->route('article.show', $post->post_name);
     }
 
     /**
@@ -70,7 +73,7 @@ class ArticlesController extends Controller
 
     //Pass the post to the view
     return view('posts/single',['post'=> $post,
-                                'page'=>"articles/{$post->post_name}"
+                                'page'=>"Articles/{$post->post_name}"
                                 ]);
     }
 
@@ -82,7 +85,8 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = \App\Models\Post::find($id);
+        return view('posts.edit')->with('post',$post);
     }
 
     /**
@@ -92,9 +96,16 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+    public function update(ArticleRequest $request, $id)
     {
-        //
+        $post = \App\Models\Post::find($id);
+        $post->post_name = request('name');
+        $post->post_title = request('title');
+        $post->post_content = request('content');
+        $post->save();
+        //$post->update($request->all());
+        return redirect()->route('article.show', $post->post_name);
     }
 
     /**
@@ -105,6 +116,8 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+     //   $post = \App\Models\Post::find($id);
+        Post::destroy($id);
+        return redirect()->route('articles.index');
     }
 }

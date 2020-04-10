@@ -1,6 +1,6 @@
 @extends('../layouts/main')
 
-<!-- partie article -->
+<!-- partie afficher l'article -->
 @section('content')
 
 <section id="services">
@@ -9,6 +9,17 @@
             <h2 class="section-heading text-uppercase">{{ $post->post_name }}̄̄</h2>
         </div><br>
             <h5>TITRE: {{ $post->post_title }}</h5><br>
+            @guest
+            @else 
+            <div class="d-flex justify-content-end">
+                <a href=" {{ route('articles.edit', $post) }} "><button class="btn btn-outline-success">modifier</button></a>
+                <form action="{{ route('articles.destroy', $post) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger">supprimer</button>
+                </form>
+            </div>
+            @endguest
             <p>{{ $post->post_content }}</p>
     </div>
 </section><br>
@@ -27,6 +38,7 @@
     </div><br>
         <button class="btn btn-primary" type="submit">Publier</button>
 </form><br>
+
 
 <!-- afficher les commentaires -->
 

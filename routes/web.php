@@ -21,11 +21,16 @@ Route::resource('admin/articles', 'ArticlesController')->except(['index', 'show'
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/Articles', 'ArticlesController@index');
-Route::get('/Articles/{post_name}', 'ArticlesController@show');
+Route::get('/Articles', 'ArticlesController@index')->name('articles.index');
+Route::get('/Articles/{post_name}', 'ArticlesController@show')->name('article.show');
 
 Route::get('/Contacts', 'ContactsController@create');
 Route::post('/Contacts', 'ContactsController@store');
 
 Route::get('/Articles/{post_name}/Comments', 'CommentController@show');
 Route::post('/Comments', 'CommentController@store');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+

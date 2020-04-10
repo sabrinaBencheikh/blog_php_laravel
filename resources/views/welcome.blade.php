@@ -1,4 +1,4 @@
-@extends('layouts/main')
+@extends('layouts.main')
 @section ('content')
 <div class="container">
   <h4 class="text-center">DERNIERS ARTICLES PUBLIES:</h4><br>
