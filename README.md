@@ -1,7 +1,7 @@
 
 ## Blog Laravel M2 MIASHS DCISS
 
-ceci est un projet réalisé en travaux pratique avec M.Florian Rodriguez et M.Pierre blare pour le module Programation web coté client en utilisant le frameWork Php Laravel .
+ceci est un projet réalisé en travaux pratique avec M.Florian Rodriguez et M.Pierre blare pour le module Programation web coté serveur en utilisant le frameWork Php Laravel .
 
 ## Pré-requis
 
