@@ -30,7 +30,7 @@ Afin d'installer le projet sur votre machine suivez les étapes suivantes
             php artisan db:seed 
             php artisan serve 
             
-8. #####Vous pouvez maintenant accéder au projet sur localhost:8000 :)
+8. Vous pouvez maintenant accéder au projet sur localhost:8000 :)
 
 
 
