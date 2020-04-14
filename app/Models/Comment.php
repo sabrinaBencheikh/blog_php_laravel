@@ -20,4 +20,9 @@ class Comment extends Model
 
         return $this->belongsTo('App\Models\Post', 'post_id');
     }
+
+    public function commentable(){
+
+        return $this->morphTo();
+    }
 }

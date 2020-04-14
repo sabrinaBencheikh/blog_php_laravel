@@ -6,10 +6,11 @@
 <div class="container">
   <div class="list-group"></div>
         <h1 class="section-header text-center">LES ARTICLES</h1><br>
-        @guest
-        @else
-        <a href="admin/articles/create" class = "btn btn-primary"> Nouvel article</a>
-        @endguest
+
+        @cannot('create', $posts)
+        <a href=" {{route('articles.create')}} " class = "btn btn-primary"> Nouvel article</a>
+        @endcannot
+
         <div class="mt-3">
         @foreach ( $posts as $post )
           <div class="list-group-item">

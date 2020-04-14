@@ -31,7 +31,7 @@
 <div class="container">
     <h4>Ajouter un commentaire</h4>
 
-    <form action=" {{ route('comments.store', $post->id)}} " method="POST">
+    <form action=" {{ route('comments.store', $post)}} " method="POST">
     {{ csrf_field() }}
     <div>
         <textarea name="body" placeholder="Votre commentaire..."  class="form-control" rows="2" required="required"></textarea>
@@ -49,10 +49,10 @@
             @forelse ($post->comments as $comment)
             <div class="d-flex justify-content-end">
                 @can('update', $comment)
-                <a class="btn btn-warning" href=" {{ route('comments.edit',$comment) }} "><span class="fa fa-pencil"></span></a>
+                <a class="btn btn-warning" href=" {{ route('comments.edit', $post) }} "><span class="fa fa-pencil"></span></a>
                 @endcan
                 @can('delete', $comment)
-                <form action="{{ route('comments.destroy',$comment) }}" method="POST">
+                <form action="{{ route('comments.destroy', $post) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger" ><span class="fa fa-trash"></button>

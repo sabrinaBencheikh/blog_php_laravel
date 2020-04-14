@@ -17,6 +17,6 @@ class Post extends Model
 
     public function comments(){
 
-        return $this->hasMany('App\Models\Comment');
+        return $this->morphMany('App\Models\Comment', 'commentable')->latest();
     }
 }

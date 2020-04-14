@@ -86,6 +86,7 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         $post = \App\Models\Post::find($id);
+        $this->authorize('update', $post);
         return view('posts.edit')->with('post',$post);
     }
 
@@ -100,6 +101,8 @@ class ArticlesController extends Controller
     public function update(ArticleRequest $request, $id)
     {
         $post = \App\Models\Post::find($id);
+        $this->authorize('update', $post);
+
         $post->post_name = request('name');
         $post->post_title = request('title');
         $post->post_content = request('content');
@@ -116,7 +119,9 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-     //   $post = \App\Models\Post::find($id);
+        $post = \App\Models\Post::find($id);
+        $this->authorize('delete', $post);
+
         Post::destroy($id);
         return redirect()->route('articles.index');
     }

@@ -27,8 +27,10 @@ Route::get('/Articles/{post_name}', 'ArticlesController@show')->name('article.sh
 Route::get('/Contacts', 'ContactsController@create');
 Route::post('/Contacts', 'ContactsController@store');
 
-Route::get('/Articles/{post_name}/Comments', 'CommentController@show');
-Route::post('/Comments', 'CommentController@store');
+Route::resource('admin/comments', 'CommentController')->except('show');
+Route::get('/Articles/{post_name}/Comments', 'CommentController@show')->name('comment.show');;
+Route::post('/Comments/{post}', 'CommentController@store')->name('comments.store');
+
 
 Auth::routes();
 

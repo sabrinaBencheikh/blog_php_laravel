@@ -21,6 +21,8 @@ class UsersTableSeeder extends Seeder
                 $post->comments()->saveMany(factory(App\Models\Comment::class,20)->create());
         }));
         });
+       // factory(App\Models\User::class, 10)->create();
+ 
         
  
     }
