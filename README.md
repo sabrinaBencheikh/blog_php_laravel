@@ -85,6 +85,10 @@ si non la page register nous permettras de créer un compte en remplissant le fo
 
 Une fois connecté un bouton de déconnexion est affiché à la place du bouton "se connecter" permettant à l'utilisateur de se déconnecter depuis toutes les pages 
 
+## Profil utilisateur
+Nous avons créer un UserController qui nous permet de gérer le profil utilisateur une route resource pour eventuellement gérer les crud pour le profil. Cependant nous n'avns développer que la partie affiche du profil utilisateur.
+En effet, nous avons ajouter un lien dans la barre déroulente de connexion pour un utilisateur logued qui lui permettra d'accéder à son profil. Nous avons créé une view profil vers lequel le User controller redirigera la demande d'acc_s au profil grace a la méthode show.
+
 
 
 
