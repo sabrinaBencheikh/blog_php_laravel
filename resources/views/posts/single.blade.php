@@ -76,7 +76,7 @@
                 </form>
                 @endcan
             </div>
-                <div class="list-group-item">
+                <div class="list-group-item mt-3">
                     <div class="d-flex justify-content-between">
                        <small><Strong>{{ $post->user->name }}</Strong>, publié le {{ $comment->created_at->Format('d/m/Y à H:m') }}</small> 
                        <span>modifié {{ $post->updated_at->diffForHumans() }} </span>
@@ -116,10 +116,7 @@
                             </div>
                                 <p>{{ $replyComment->body }}</p>
                         </div>
-                    @endforeach
-
-
-                
+                    @endforeach               
                 </div><br>
 
             @empty
