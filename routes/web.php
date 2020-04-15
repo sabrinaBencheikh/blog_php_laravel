@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 
+Route::resource('admin/profils', 'UserController')->except(['index', 'show']);
+Route::get('/profils/{user}', 'UserController@show')->name('profils.show');
+
+
 Route::resource('admin/articles', 'ArticlesController')->except(['index', 'show']);
 
 Route::get('/', 'HomeController@index');
@@ -30,6 +34,7 @@ Route::post('/Contacts', 'ContactsController@store');
 Route::resource('admin/comments', 'CommentController')->except('show');
 Route::get('/Articles/{post_name}/Comments', 'CommentController@show')->name('comment.show');;
 Route::post('/Comments/{post}', 'CommentController@store')->name('comments.store');
+Route::post('/admin/comments/{comment}', 'CommentController@storeReplyComment')->name('replyComment.store');
 
 
 Auth::routes();

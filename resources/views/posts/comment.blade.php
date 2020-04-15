@@ -1,8 +1,9 @@
 @extends('../layouts/main')
 
-<!-- partie afficher l'article -->
 @section('content')
 
+<!-- partie afficher l'article -->
+    
 <section id="services">
     <div class="container">
         <div class="text-center">
@@ -26,19 +27,6 @@
 </section><br>
 <hr>
     
-<!-- partie ajouter un commentaire -->
-    
-<div class="container">
-    <h4>Ajouter un commentaire</h4>
-
-    <form action=" {{ route('comments.store', $post)}} " method="POST">
-    {{ csrf_field() }}
-    <div>
-        <textarea name="body" placeholder="Votre commentaire..."  class="form-control" rows="2" required="required"></textarea>
-        {!! $errors->first('body', '<span class="help-block">:message</span>') !!}
-    </div><br>
-        <button class="btn btn-dark btn-lg fa fa-comment" type="submit">Commenter</button>
-</form><br>
 
 
 <!-- afficher les commentaires -->
@@ -47,12 +35,21 @@
     <div class="list-group">
         <h4><strong ><a href="/Articles/{{ $post->post_name }}/Comments"> Avis ({{ count($post->comments) }}) :</a></strong></h4>
             @forelse ($post->comments as $comment)
+                @if($comment->id == $commentToEdit->id)
+                <form action=" {{route('comments.update', $comment)}}" method="post">
+                    @csrf
+                    @method('PATCH')
+                    <textarea name="body" cols="60" rows="2" required="required">{{ $comment->body }}</textarea><br>
+                    <small><button class="btn btn-dark btn-lg fa fa-comment" type="submit">modifier</button></small>
+                    {!! $errors->first('body', '<span class="help-block">:message</span>') !!}
+                </form>
+                @else
             <div class="d-flex justify-content-end">
                 @can('update', $comment)
-                <a class="btn btn-warning" href=" {{ route('comments.edit', $post) }} "><span class="fa fa-pencil"></span></a>
+                <a class="btn btn-warning" href=" {{ route('comments.edit', $comment) }} "><span class="fa fa-pencil"></span></a>
                 @endcan
                 @can('delete', $comment)
-                <form action="{{ route('comments.destroy', $post) }}" method="POST">
+                <form action="{{ route('comments.destroy', $comment) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger" ><span class="fa fa-trash"></button>
@@ -65,11 +62,8 @@
                        <span>modifié {{ $post->updated_at->diffForHumans() }} </span>
                     </div>
                         <p>{{ $comment->body }}</p>
-                    <a  class="btn btn" href="http://"></a>
-                    <small><a class="fa fa-reply fa-lg" href="{{route('comments.store', $post)}} ">répondre</a></small>
                 </div><br>
-                
-
+                @endif
             @empty
                 <div>Aucun commentaire pour cet article.</div>
             @endforelse

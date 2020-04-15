@@ -15,7 +15,7 @@ class CommentController extends Controller
         $this->middleware('auth')->except('show');
     }
 
-    
+    //ajouter un commentaire
     public function store(CommentRequest $request, $idPost){
 
       $post = Post::find($idPost);
@@ -27,6 +27,26 @@ class CommentController extends Controller
       $post->comments()->save($comment);
 
       return redirect()->route('article.show', $post->post_name);
+
+    }
+
+    //repondre a un commentaire
+    public function storeReplyComment(Comment $comment){
+
+      request()->validate([
+
+            'replyComment' => 'required|min:2'
+      ]);
+
+      $replyComment = new Comment();
+      $replyComment->body = request('replyComment');
+      $replyComment->user_id = auth()->user()->id;
+      $replyComment->post_id = $comment->post->id;
+      
+      $comment->comments()->save($replyComment);
+
+      return redirect()->route('article.show', $comment->post->post_name);
+
 
     }
 
@@ -43,29 +63,34 @@ class CommentController extends Controller
     }
 
 
+
+//mettre a jour un commentaire
     public function update(CommentRequest $request, Comment $comment){
 
-        // $comment = Comment::find($idComment);
+         $post = $comment->post;
          $this->authorize('update', $comment);
          $comment->body = request('body');
-         //$post->comment->save();
-         $comment->save();
+         $comment->updated_at = now();
+         $post->comments()->save($comment);
+         //$comment->save();
+      //   Comment::save($comment->id);
 
          return redirect()->route('article.show', $comment->post->post_name);
     }
 
-    public function edit(Comment $comment){
+    //modifier un commentaire
+    public function edit($idComment){
 
-        // $comment = Comment::find($idComment);
+         $comment = Comment::find($idComment);
          $this->authorize('update', $comment);
          $post = $comment->post;
-         return view('posts.comment', ['post'=> $post, 'commentToEdit', $comment]);
+         return view('posts.comment', ['post'=> $post, 'commentToEdit' =>  $comment]);
     }
 
     public function destroy(Comment $comment){
 
      // $comment = Comment::find($idComment);
-      $this->authorize('update', $comment);
+      $this->authorize('delete', $comment);
       $comment->delete();
       $post = $comment->post;
       return redirect()->route('article.show', $post->post_name);

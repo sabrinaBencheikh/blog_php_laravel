@@ -9,6 +9,20 @@
           @endforeach
         </ul>
   </div>
+  <div class="text-center">
+    <div class="jumbotron">
+      <p>Projet Programation web coté serveur</p><br>
+      <p>Application web avec Laravel</p>
+    </div>
+    <p>Réalisé par</p>
+    <td>
+      <tr>Bouaziz Mohammed Amine et Bencheikh Sabrina </tr>
+    </td>
+    <p><br> Encadré par</p>
+    <td>
+      <tr>Floriant Rodriguez et Pierre Blarre</tr>
+    </td>
+  </div>
 </div>
 
 @endsection

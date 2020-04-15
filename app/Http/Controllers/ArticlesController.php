@@ -106,6 +106,7 @@ class ArticlesController extends Controller
         $post->post_name = request('name');
         $post->post_title = request('title');
         $post->post_content = request('content');
+        $post->updated_at = now();
         $post->save();
         //$post->update($request->all());
         return redirect()->route('article.show', $post->post_name);
